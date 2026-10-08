@@ -1,10 +1,10 @@
-name: Gerar APK - Contas a Dois
+name: Gerar APK - Contas a Dois v3.3
 
 on:
   workflow_dispatch:
   push:
     paths:
-      - 'Contas_a_Dois_Android_Projeto_v1_5.zip'
+      - 'Contas_a_Dois_Android_Projeto_v3_3.zip'
       - '.github/workflows/build-apk.yml'
 
 permissions:
@@ -35,7 +35,7 @@ jobs:
           gradle-version: '8.9'
 
       - name: Extrair projeto
-        run: unzip -q Contas_a_Dois_Android_Projeto_v1_5.zip
+        run: unzip -q Contas_a_Dois_Android_Projeto_v3_3.zip
 
       - name: Compilar APK
         working-directory: contas_a_dois_android
@@ -44,6 +44,6 @@ jobs:
       - name: Publicar APK
         uses: actions/upload-artifact@v4
         with:
-          name: Contas-a-Dois-APK-v1.5
+          name: Contas-a-Dois-APK-v3.3
           path: contas_a_dois_android/app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
