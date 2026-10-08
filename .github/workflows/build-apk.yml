@@ -1,10 +1,10 @@
-name: Gerar APK - Contas a Dois v3.3
+name: Gerar APK - Contas a Dois v4.0
 
 on:
   workflow_dispatch:
   push:
     paths:
-      - 'Contas_a_Dois_Android_Projeto_v3_3.zip'
+      - 'Contas_a_Dois_Android_Projeto_v4_0.zip'
       - '.github/workflows/build-apk.yml'
 
 permissions:
@@ -38,48 +38,9 @@ jobs:
         run: |
           rm -rf projeto_extraido
           mkdir projeto_extraido
-          unzip -q Contas_a_Dois_Android_Projeto_v3_3.zip -d projeto_extraido
-          echo "Conteúdo extraído:"
-          find projeto_extraido -maxdepth 3 -type f | head -50
+          unzip -q Contas_a_Dois_Android_Projeto_v4_0.zip -d projeto_extraido
 
       - name: Localizar projeto Android
         id: localizar
         run: |
-          PROJECT_DIR=$(find projeto_extraido -type f -name settings.gradle -printf '%h\n' | head -1)
-
-          if [ -z "$PROJECT_DIR" ]; then
-            PROJECT_DIR=$(find projeto_extraido -type f -name settings.gradle.kts -printf '%h\n' | head -1)
-          fi
-
-          if [ -z "$PROJECT_DIR" ]; then
-            echo "ERRO: Projeto Android não encontrado."
-            exit 1
-          fi
-
-          echo "Projeto encontrado em: $PROJECT_DIR"
-          echo "project_dir=$PROJECT_DIR" >> "$GITHUB_OUTPUT"
-
-      - name: Compilar APK
-        run: |
-          cd "${{ steps.localizar.outputs.project_dir }}"
-          gradle assembleDebug
-
-      - name: Localizar APK
-        id: apk
-        run: |
-          APK_PATH=$(find projeto_extraido -type f -name "*debug*.apk" | head -1)
-
-          if [ -z "$APK_PATH" ]; then
-            echo "ERRO: APK não encontrado."
-            exit 1
-          fi
-
-          echo "APK encontrado em: $APK_PATH"
-          echo "apk_path=$APK_PATH" >> "$GITHUB_OUTPUT"
-
-      - name: Publicar APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: Contas-a-Dois-APK-v3.3
-          path: ${{ steps.apk.outputs.apk_path }}
-          if-no-files-found: error
+         
