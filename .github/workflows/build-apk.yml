@@ -1,10 +1,10 @@
-name: Gerar APK - Contas a Dois v4.3
+name: Gerar APK - Contas a Dois v4.4
 
 on:
   workflow_dispatch:
   push:
     paths:
-      - 'Contas_a_Dois_Android_v4_3_Teste.zip'
+      - 'Contas_a_Dois_Android_v4_4_Cartoes.zip'
       - '.github/workflows/build-apk.yml'
 
 permissions:
@@ -38,7 +38,7 @@ jobs:
         run: |
           rm -rf projeto_extraido
           mkdir projeto_extraido
-          unzip -q Contas_a_Dois_Android_v4_3_Teste.zip -d projeto_extraido
+          unzip -q Contas_a_Dois_Android_v4_4_Cartoes.zip -d projeto_extraido
 
       - name: Localizar projeto Android
         id: localizar
@@ -78,6 +78,6 @@ jobs:
       - name: Publicar APK
         uses: actions/upload-artifact@v4
         with:
-          name: Contas-a-Dois-APK-v4.3
+          name: Contas-a-Dois-APK-v4.4
           path: ${{ steps.apk.outputs.apk_path }}
           if-no-files-found: error
